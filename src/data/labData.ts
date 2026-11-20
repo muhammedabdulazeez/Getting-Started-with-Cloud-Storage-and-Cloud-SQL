@@ -1,4 +1,5 @@
 export type TaskId = 'task1' | 'task2' | 'task3' | 'task4' | 'task5' | 'task6';
+export type ImagePathMode = 'zip-renamed' | 'gnome-original' | 'aistudio-public';
 
 export interface LabConfig {
   githubUsername: string;
@@ -17,6 +18,7 @@ export interface LabConfig {
   sqlPassword: string;
   sanitizeSecrets: boolean;
   includeTroubleshootingNotes: boolean;
+  imagePathMode: ImagePathMode;
 }
 
 export interface LabScreenshot {
@@ -51,6 +53,7 @@ export const DEFAULT_LAB_CONFIG: LabConfig = {
   sqlPassword: 'Passw0rd1!',
   sanitizeSecrets: false,
   includeTroubleshootingNotes: true,
+  imagePathMode: 'zip-renamed',
 };
 
 export const INITIAL_SCREENSHOTS: LabScreenshot[] = [
@@ -503,6 +506,20 @@ try {
 `;
 }
 
+export function getScreenshotMarkdownPath(
+  shot: LabScreenshot,
+  mode: ImagePathMode
+): string {
+  if (mode === 'gnome-original') {
+    const timePart = shot.timestamp.replace(/:/g, '-');
+    return `./Screenshot%20From%202026-11-20%20${timePart}.png`;
+  }
+  if (mode === 'aistudio-public') {
+    return `./public${shot.originalPath}`;
+  }
+  return `./screenshots/${shot.cleanFilename}`;
+}
+
 export function generateReadmeMarkdown(
   config: LabConfig,
   screenshots: LabScreenshot[]
@@ -516,7 +533,7 @@ export function generateReadmeMarkdown(
       .filter((s) => s.taskId === taskId)
       .map(
         (s) =>
-          `#### ${s.title}\n\n${s.caption}\n\n![${s.title}](./screenshots/${s.cleanFilename})`
+          `#### ${s.title}\n\n${s.caption}\n\n![${s.title}](${getScreenshotMarkdownPath(s, config.imagePathMode)})`
       )
       .join('\n\n');
 

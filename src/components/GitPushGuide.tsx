@@ -143,6 +143,23 @@ gh repo create ${repo} --public --source=. --remote=origin --push`;
         </div>
       </div>
 
+      <div className="bg-white border border-slate-200 rounded-lg p-6 space-y-3">
+        <h3 className="text-sm font-semibold text-slate-900">
+          Why Aren&apos;t Images Showing on GitHub?
+        </h3>
+        <ul className="list-disc list-inside space-y-1.5 text-xs text-slate-700 leading-relaxed">
+          <li>
+            <strong className="font-semibold text-slate-900">Unzip the archive first</strong>: Do not push <code className="bg-slate-100 px-1 py-0.5 rounded">{repo}.zip</code> itself. Extract it so <code className="bg-slate-100 px-1 py-0.5 rounded">README.md</code> and the <code className="bg-slate-100 px-1 py-0.5 rounded">screenshots/</code> folder sit at the repository root.
+          </li>
+          <li>
+            <strong className="font-semibold text-slate-900">Filename mismatch</strong>: If you uploaded your original Linux screenshots (<code className="bg-slate-100 px-1 py-0.5 rounded">Screenshot From 2026-11-20 ...png</code>) without renaming them, switch <strong>Image Path Format</strong> in the left sidebar to match your local filenames, or use <code className="bg-slate-100 px-1 py-0.5 rounded">Download Repo .zip</code> which renames and places every PNG inside <code className="bg-slate-100 px-1 py-0.5 rounded">screenshots/</code> automatically.
+          </li>
+          <li>
+            <strong className="font-semibold text-slate-900">Case sensitivity</strong>: GitHub paths are case-sensitive (<code className="bg-slate-100 px-1 py-0.5 rounded">screenshots/</code> must be lowercase).
+          </li>
+        </ul>
+      </div>
+
       <div className="bg-white border border-slate-200 rounded-lg p-6">
         <div className="flex items-center gap-2 pb-3 border-b border-slate-200">
           <FolderTree className="w-4 h-4 text-slate-600" />

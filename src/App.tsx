@@ -11,6 +11,7 @@ import {
 import {
   DEFAULT_LAB_CONFIG,
   INITIAL_SCREENSHOTS,
+  ImagePathMode,
   LabConfig,
   LabScreenshot,
   generateReadmeMarkdown,
@@ -140,6 +141,10 @@ export default function App() {
             const response = await fetch(shot.originalPath);
             if (!response.ok) {
               throw new Error(`Failed to fetch ${shot.cleanFilename}`);
+            }
+            const contentType = response.headers.get('content-type') || '';
+            if (contentType && !contentType.startsWith('image/')) {
+              throw new Error(`Unexpected response type for ${shot.cleanFilename}`);
             }
             const blob = await response.blob();
             screenshotsFolder.file(shot.cleanFilename, blob);
@@ -328,6 +333,23 @@ export default function App() {
                   onChange={(e) => updateConfig('sqlPublicIp', e.target.value)}
                   className="w-full px-2.5 py-1.5 text-xs font-mono tabular-nums text-slate-900 bg-white border border-slate-200 rounded-md focus:outline-none focus:border-blue-600"
                 />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-slate-600 mb-1">
+                  GitHub Image Path Format
+                </label>
+                <select
+                  value={config.imagePathMode}
+                  onChange={(e) =>
+                    updateConfig('imagePathMode', e.target.value as ImagePathMode)
+                  }
+                  className="w-full px-2.5 py-1.5 text-xs text-slate-900 bg-white border border-slate-200 rounded-md focus:outline-none focus:border-blue-600"
+                >
+                  <option value="zip-renamed">./screenshots/01-*.png (Repo .zip)</option>
+                  <option value="gnome-original">./Screenshot%20From%20...png (GNOME local)</option>
+                  <option value="aistudio-public">./public/assets/aistudio/...png (Workspace)</option>
+                </select>
               </div>
             </div>
 

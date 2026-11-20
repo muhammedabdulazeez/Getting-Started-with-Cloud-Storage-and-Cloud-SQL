@@ -53,6 +53,7 @@ export const ScreenshotManager: React.FC<ScreenshotManagerProps> = ({
   }, [screenshots, taskFilter, statusFilter, query]);
 
   const selectedCount = screenshots.filter((s) => s.selected).length;
+  const recommendedCount = screenshots.filter((s) => s.recommended).length;
 
   return (
     <div className="space-y-5">
@@ -76,7 +77,7 @@ export const ScreenshotManager: React.FC<ScreenshotManagerProps> = ({
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-200 rounded-md hover:bg-slate-50 transition-colors whitespace-nowrap shrink-0"
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              Use Curated (19)
+              Use Curated ({recommendedCount})
             </button>
             <button
               type="button"

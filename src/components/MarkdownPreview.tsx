@@ -1,6 +1,13 @@
 import React from 'react';
 import { Copy, Check, Download, ExternalLink, Maximize2 } from 'lucide-react';
-import { LabConfig, LabScreenshot, TaskId, getPhpAppCode, getStartupScript } from '../data/labData';
+import {
+  LabConfig,
+  LabScreenshot,
+  TaskId,
+  getPhpAppCode,
+  getScreenshotMarkdownPath,
+  getStartupScript,
+} from '../data/labData';
 
 interface MarkdownPreviewProps {
   config: LabConfig;
@@ -60,7 +67,7 @@ export const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({
                   {shot.title}
                 </h4>
                 <p className="text-xs text-slate-500 mt-0.5 font-mono truncate">
-                  ./screenshots/{shot.cleanFilename}
+                  {getScreenshotMarkdownPath(shot, config.imagePathMode)}
                 </p>
               </div>
               <button
