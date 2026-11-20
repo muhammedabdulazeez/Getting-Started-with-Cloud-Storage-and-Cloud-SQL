@@ -1,0 +1,6 @@
+{
+  "name": "CloudLab GitHub Docs Studio",
+  "description": "Build, preview, and export a GitHub-ready README.md with curated lab screenshots and repository files for Google Cloud Fundamentals: Getting Started with Cloud Storage and Cloud SQL.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
